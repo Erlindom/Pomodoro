@@ -6,37 +6,44 @@
  */
 
 import React from 'react';
+import { useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
+  SafeAreaView
 } from 'react-native';
+import Header from './src/components/Header';
+
+const colors = ["#F7DC6F", "#A2D9CE", "#D7BDE2"];
 
 function App(): React.JSX.Element {
+  const [isWorking, setIsWorking] = useState(false);
+  const [time, setTime] = useState(25 * 60);
+  const [currentTime, setCurrentTime] = useState(0);
+
   return (
-    <View>
-      <Text>Hola mundo</Text>
-    </View>
+    <SafeAreaView style={[styles.container, {backgroundColor: colors[currentTime]}]}>
+      <View>
+        <Text style={styles.text}>Pomodoro</Text>
+        <Text style={styles.text}>{time}</Text>
+        <Header
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
+          setTime={setTime} />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  text: {
+    fontSize: 32,
+    fontWeight: "bold",
+  }
 });
 
 export default App;
